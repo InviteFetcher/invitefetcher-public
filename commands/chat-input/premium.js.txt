@@ -1,0 +1,33 @@
+const { Client, CommandInteraction, MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
+const config = require("../../config");
+
+module.exports = {
+    data: {
+        name: "premium",
+        description: "Manage premium features.",
+    },
+    onlyOwners: false,
+    inDev: true,
+    /**
+     * @param {Client} client
+     * @param {CommandInteraction} interaction
+     */
+    async exe(client, interaction) {
+        const { guild, user } = interaction;
+
+        const embed = new MessageEmbed()
+            .setTitle("Code Premium")
+            .setDescription(`Voici votre code premium : ****`)
+            .setColor(config.colors.default);
+
+        const row = new MessageActionRow()
+            .addComponents(
+                new MessageButton()
+                    .setCustomId("redeem_premium")
+                    .setLabel("Redeem")
+                    .setStyle("SUCCESS")
+            );
+
+        interaction.reply({ embeds: [embed], components: [row] });
+    },
+};

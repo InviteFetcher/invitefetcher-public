@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>InviteFetcher - Select Server</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background-color: #1F2B3D;
+            color: #FFFFFF;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+        }
+
+        .navbar-logo {
+            color: #7289DA;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .navbar-button {
+            background-color: #7289DA;
+            color: #FFFFFF;
+            border: none;
+            padding: 5px 10px;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .content {
+            background-color: #1F2B3D;
+            padding: 20px;
+            text-align: center;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .content-title {
+            font-size: 30px;
+            font-weight: bold;
+            color: #FFFFFF;
+        }
+
+        .server-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .server-card {
+            background-color: #7289DA;
+            color: #FFFFFF;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 10px;
+            width: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .server-card-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .server-card-logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .server-card-icon {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .server-card-name {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .server-card-actions {
+            display: flex;
+            justify-content: center;
+        }
+
+        .server-card-button {
+            background-color: #FFFFFF;
+            color: #7289DA;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .error-card {
+            background-color: #FF0000;
+            color: #FFFFFF;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 10px;
+            width: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .error-message {
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .config-cards {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .config-card {
+            background-color: #293949;
+            width: 100%;
+            max-width: 300px;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .config-card-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .config-card-description {
+            font-size: 16px;
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .config-card-button {
+            background-color: #66BB6A;
+            color: white;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .footer {
+            background-color: #1F2B3D;
+            padding: 10px;
+            color: #FFFFFF;
+            text-align: center;
+            font-size: 14px;
+            margin-top: auto;
+        }
+
+        @media (max-width: 768px) {
+            .content-title {
+                font-size: 24px;
+            }
+
+            .server-card,
+            .error-card,
+            .config-card {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .release-banner {
+                background: linear-gradient(to right, #FF5252, #FF4081, #E040FB, #7C4DFF, #536DFE, #448AFF);
+                padding: 10px;
+                text-align: center;
+            }
+
+            .release-message {
+                font-size: 18px;
+                color: white;
+                margin: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="release-banner">
+        <p class="release-message">Official release of the InviteFetcher beta!</p>
+    </div>
+    <div class="navbar">
+        <a class="navbar-logo" href="/">InviteFetcher</a>
+        <% if (isLoggedIn) { %>
+            <a class="navbar-button" href="/dashboard">Dashboard</a>
+            <% } else { %>
+                <a class="navbar-button" href="/login">Login</a>
+                <% } %>
+    </div>
+
+    <div class="content">
+        <h1 class="content-title">Server Configuration</h1>
+        <div class="config-cards">
+            <div class="config-card">
+                <h2 class="config-card-title">Configure Welcome</h2>
+                <p class="config-card-description">Welcome Message: <%= welcomeMessage %>
+                </p>
+                <p class="config-card-description">Welcome Channel: <%= welcomeChannelId %>
+                </p>
+                <a class="config-card-button" href="/dashboard/server/<%= serverId %>/welcome">Edit</a>
+            </div>
+            <div class="config-card">
+                <h2 class="config-card-title">Configure Leave</h2>
+                <p class="config-card-description">Leave Message: <%= leaveMessage %>
+                </p>
+                <p class="config-card-description">Leave Channel: <%= leaveChannelId %>
+                </p>
+                <a class="config-card-button" href="/dashboard/server/<%= serverId %>/leave">Edit</a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>Made with ❤️ by cheraphdev</p>
+    </footer>
+</body>
+
+</html>

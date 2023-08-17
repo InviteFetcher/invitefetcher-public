@@ -1,0 +1,14 @@
+{
+    "host": "http://venus.projectheberg.com",
+    "port": 20264,
+    "clientId": "1114937352465420288",
+    "clientSecret": "",
+    "redirectUri": "http://venus.projectheberg.com:20264/callback",
+    "sessionSecret": "manageinvitesecret",
+    "auth": {
+        "scope": [
+            "identify",
+            "guilds"
+        ]
+    }
+}
